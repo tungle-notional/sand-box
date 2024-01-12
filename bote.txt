@@ -1,0 +1,5 @@
+original: sai encoding
+* json khong convert duoc sang kieu dung CombinedLimit de encode
+
+fix: correct encoding: 
+* CombinedLimit.encode

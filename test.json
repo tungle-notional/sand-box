@@ -1,0 +1,199 @@
+{
+    body: {
+      messages: [
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1z89funaazn4ka8vrmmw4q27csdykz63hep4ay8q2dmlspc6wtdgq92u369',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.CombinedLimit',
+                    calls_remaining: '1000',
+                    amounts: [
+                                        {
+                        denom: 'uwhale',
+                        amount: '2500000000'
+                                        }
+                                    ]
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'create_pair'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            },
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1z89funaazn4ka8vrmmw4q27csdykz63hep4ay8q2dmlspc6wtdgq92u369',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.MaxCallsLimit',
+                    remaining: '1000'
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'add_native_token_decimals'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            },
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1z89funaazn4ka8vrmmw4q27csdykz63hep4ay8q2dmlspc6wtdgq92u369',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.CombinedLimit',
+                    calls_remaining: '1000',
+                    amounts: [
+                                        {
+                        denom: 'uwhale',
+                        amount: '2500000000'
+                                        }
+                                    ]
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'create_trio'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            },
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1tma28exp38q92c69r8uujhphxy95xa4awq2cudqqg3nhzkhnrg5s4r60en',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.MaxCallsLimit',
+                    remaining: '1000'
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'add_swap_routes'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            },
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1rqfr752hn6auzm3vzzyr2pd8rt6fapf208vm8qfpejstt69uxfwqcdrdq3',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.MaxCallsLimit',
+                    remaining: '1000'
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'create_incentive'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            },
+            {
+          '@type': '/cosmos.authz.v1beta1.MsgGrant',
+          granter: 'migaloo1dfnv6nht76d3s2krklyn9mk504vnf5928244pt',
+          grantee: 'migaloo1dq8rznyx0j2xr0y9qfdgz8uletln4j9xtrv44p',
+          grant: {
+            authorization: {
+              '@type': '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+              grants: [
+                            {
+                  contract: 'migaloo1g2xwx805epc897rwyrykskjque07yxfmc4qq2p4ef5dwd6znl30qkgw8w7',
+                  limit: {
+                    '@type': '/cosmwasm.wasm.v1.CombinedLimit',
+                    calls_remaining: '1000',
+                    amounts: [
+                                        {
+                        denom: 'uwhale',
+                        amount: '500000000'
+                                        }
+                                    ]
+                                },
+                  filter: {
+                    '@type': '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+                    keys: [
+                      'create_vault'
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+            expiration: '2024-12-18T16: 08: 11Z'
+                }
+            }
+        ],
+      memo: 'Add authz for allowing creating pools with hot wallet',
+      timeout_height: '0',
+      extension_options: [],
+      non_critical_extension_options: []
+    },
+    auth_info: {
+      signer_infos: [],
+      fee: {
+        amount: [
+                {
+            amount: '2000000',
+            denom: 'uwhale'
+                }
+            ],
+        gas_limit: '4000000',
+        payer: '',
+        granter: ''
+        }
+    },
+    signatures: []
+}

@@ -1,0 +1,7 @@
+
+»
+Bmigaloo14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s58v48z4
+/cosmwasm.wasm.v1.CombinedLimitd
+uwhale250?
++/cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+transfer_price

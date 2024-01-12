@@ -1,47 +1,20 @@
-import { readFile } from "fs/promises"
-import { DirectSecp256k1HdWallet, OfflineDirectSigner } from "@cosmjs/proto-signing"
-import { IndexedTx, SigningStargateClient, StargateClient } from "@cosmjs/stargate"
-import { MsgSend } from "cosmjs-types/cosmos/bank/v1beta1/tx"
-import { Tx } from "cosmjs-types/cosmos/tx/v1beta1/tx"
+import { DirectSecp256k1HdWallet } from "@cosmjs/proto-signing"
+import { SigningStargateClient, StargateClient } from "@cosmjs/stargate"
+import { MsgGrant } from "cosmjs-types/cosmos/authz/v1beta1/tx"
 
-const rpc = "https://rpc.sentry-01.theta-testnet.polypore.xyz"
+const rpc = "http://localhost:26657"
+// tcp://localhost:26657
 
-const getAliceSignerFromMnemonic = async (): Promise<OfflineDirectSigner> => {
-    return DirectSecp256k1HdWallet.fromMnemonic((await readFile("./testnet.alice.mnemonic.key")).toString(), {
-        prefix: "cosmos",
+const getAliceSignerFromMnemonic = async () => {
+    return DirectSecp256k1HdWallet.fromMnemonic("brain vote immense neutral check example meat gold hover quote draft nasty acquire antique all flash trash harbor aerobic moon welcome mutual february sketch", {
+        prefix: "migaloo",
     })
 }
 
-const runAll = async (): Promise<void> => {
+const runAll = async () => {
     const client = await StargateClient.connect(rpc)
-    console.log("With client, chain id:", await client.getChainId(), ", height:", await client.getHeight())
-    console.log(
-        "Alice balances:",
-        await client.getAllBalances("cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf")
-    )
-    const faucetTx: IndexedTx = (await client.getTx(
-        "540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B"
-    ))!
-    console.log("Faucet Tx:", faucetTx)
-    const decodedTx: Tx = Tx.decode(faucetTx.tx)
-    console.log("DecodedTx:", decodedTx)
-    console.log("Decoded messages:", decodedTx.body!.messages)
-    const sendMessage: MsgSend = MsgSend.decode(decodedTx.body!.messages[0].value)
-    console.log("Sent message:", sendMessage)
-    const faucet: string = sendMessage.fromAddress
-    console.log("Faucet balances:", await client.getAllBalances(faucet))
-
-    // Get the faucet address another way
-    {
-        const rawLog = JSON.parse(faucetTx.rawLog)
-        console.log("Raw log:", JSON.stringify(rawLog, null, 4))
-        const faucet: string = rawLog[0].events
-            .find((eventEl: any) => eventEl.type === "coin_spent")
-            .attributes.find((attribute: any) => attribute.key === "spender").value
-        console.log("Faucet address from raw log:", faucet)
-    }
-
-    const aliceSigner: OfflineDirectSigner = await getAliceSignerFromMnemonic()
+    
+    const aliceSigner = await getAliceSignerFromMnemonic()
     const alice = (await aliceSigner.getAccounts())[0].address
     console.log("Alice's address from signer", alice)
     const signingClient = await SigningStargateClient.connectWithSigner(rpc, aliceSigner)
@@ -52,17 +25,67 @@ const runAll = async (): Promise<void> => {
         await signingClient.getHeight()
     )
 
-    console.log("Gas fee:", decodedTx.authInfo!.fee!.amount)
-    console.log("Gas limit:", decodedTx.authInfo!.fee!.gasLimit.toString(10))
-    console.log("Alice balance before:", await client.getAllBalances(alice))
-    console.log("Faucet balance before:", await client.getAllBalances(faucet))
-    const result = await signingClient.sendTokens(alice, faucet, [{ denom: "uatom", amount: "100000" }], {
-        amount: [{ denom: "uatom", amount: "500" }],
-        gas: "200000",
-    })
-    console.log("Transfer result:", result)
+    // const msg = {
+    //     typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+    //     value: MsgSend.fromPartial({
+    //       fromAddress: alice,
+    //       toAddress: "migaloo1sxpxhzprejg5rgth0k74ws782mw00ten640zl0",
+    //       amount: [{ denom: "uwhale", amount: "1" }],
+    //     }),
+    //   };
+
+    let data = {
+        // grants: [
+        //     {
+        //         // contract: 'migaloo14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s58v48z',
+        //         // limit: {
+        //         //     typeUrl: '/cosmwasm.wasm.v1.CombinedLimit',
+        //         //     value: Buffer.from(JSON.stringify({
+        //         //         calls_remaining: 1000,
+        //         //         amounts: [
+        //         //             {
+        //         //                 denom: 'uwhale',
+        //         //                 amount: 250
+        //         //             }
+        //         //         ]
+        //         //     }))
+        //         // },
+        //         // filter: {
+        //         //     typeUrl: '/cosmwasm.wasm.v1.AcceptedMessageKeysFilter',
+        //         //     value: Buffer.from(JSON.stringify({
+        //         //         keys: [
+        //         //             'transfer_price'
+        //         //         ]
+        //         //     }))
+        //         // }
+        //     }
+        // ]
+    }
+
+    const msg = {
+        typeUrl: "/cosmos.authz.v1beta1.MsgGrant",
+        value: MsgGrant.fromPartial({
+            grantee: "migaloo1sxpxhzprejg5rgth0k74ws782mw00ten640zl0",
+            granter: "migaloo1s5898aa2tj0yaccg3xwewv3dft3q5nf8x7fvr8",
+            grant: {
+                authorization: {
+                    typeUrl: '/cosmwasm.wasm.v1.ContractExecutionAuthorization',
+                    value: Buffer.from(JSON.stringify(data))
+                },
+                // expiration: null
+            }
+        }),
+    }
+    
+    await signingClient.signAndBroadcast(alice, [msg], { gas: "100000", amount: [{ amount: "1000", denom: "uwhale" }] })
+
+    // console.log("Alice balance before:", await client.getAllBalances(alice))
+    // const result = await signingClient. sendTokens(alice, "migaloo1jf65e4zye3jw9phteud8sl5llzwkulumrvzxsr", [{ denom: "uwhale", amount: "1" }], {
+    //     amount: [{ denom: "uwhale", amount: "5" }],
+    //     gas: "200000",
+    // })
+    // console.log("Transfer result:", result)
     console.log("Alice balance after:", await client.getAllBalances(alice))
-    console.log("Faucet balance after:", await client.getAllBalances(faucet))
 }
 
 runAll()
